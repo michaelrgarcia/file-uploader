@@ -1,6 +1,6 @@
-# express-ejs-template
+# file-uploader
 
-A TypeScript Express server with ejs as the views engine.
+Another Typescript Express server that exercises basic authentication concepts with Passport. Uses ejs for views. Also my first go-around with an ORM (Prisma).
 
 ## Usage
 
