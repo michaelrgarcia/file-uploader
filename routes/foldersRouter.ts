@@ -2,14 +2,13 @@ import multer from "multer";
 
 import { Router, Request, Response, NextFunction } from "express";
 
-import fileRouter from "./fileRouter.js";
-
 import {
   addFilesGet,
   addFilesPost,
   createFolderGet,
   createFolderPost,
   foldersGet,
+  viewFileGet,
   viewFolderGet,
 } from "../controllers/foldersController.js";
 
@@ -17,8 +16,6 @@ const foldersRouter = Router();
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
-
-foldersRouter.use("/:folderId/file", fileRouter);
 
 foldersRouter.get("/", foldersGet);
 
@@ -29,5 +26,7 @@ foldersRouter.get("/:folderId", viewFolderGet);
 
 foldersRouter.get("/:folderId/add", addFilesGet);
 foldersRouter.post("/:folderId/add", upload.single("file"), addFilesPost);
+
+foldersRouter.get("/:folderId/file/:fileIndex", viewFileGet);
 
 export default foldersRouter;

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= fileInfo.name %> (<%= folderName %>)</title>
+  </head>
+  <body>
+    <h1><%= fileInfo.name %> (<%= folderName %>)</h1>
+    <div class="file-info">
+      <p class="size"><%= fileInfo.size %> bytes</p>
+      <p class="upload-time">Uploaded <%= fileInfo.uploadTime %></p>
+    </div>
+    <a href="/my-folders/<%= folderId %>/">Back to <%= folderName %></a>
+  </body>
+</html>

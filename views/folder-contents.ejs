@@ -7,10 +7,13 @@
   </head>
   <body>
     <h1><%= folder.name %></h1>
+    <a href="/my-folders/">Back to my folders</a>
     <h2>Files</h2>
     <% folder.files.forEach(function(file, fileIndex) { %>
     <div class="file" style="border: 1px solid; padding: 10px">
-      <p class="name"><%= file.name %></p>
+      <% const urlParts = file.split("/"); %> <% const fileName =
+      urlParts[urlParts.length - 1]; %>
+      <p class="name"><%= fileName %></p>
       <div class="file-actions">
         <a href="/my-folders/<%= folder.id %>/file/<%= fileIndex %>"
           >More info</a

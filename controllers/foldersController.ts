@@ -137,3 +137,43 @@ export async function addFilesPost(
     return next(err);
   }
 }
+
+export async function viewFileGet(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { folderId, fileIndex } = req.params;
+
+  try {
+    const prisma = new PrismaClient();
+
+    const folder = await prisma.folder.findUnique({
+      where: {
+        id: Number(folderId),
+      },
+    });
+
+    const fileUrl = String(folder?.files[Number(fileIndex)]);
+
+    const fileData = await fetch(fileUrl);
+    const file = await fileData.blob();
+
+    const urlParts = fileUrl.split("/");
+    const fileName = urlParts[urlParts.length - 1];
+
+    res.render("file-info", {
+      fileInfo: {
+        name: fileName,
+        size: file.size,
+        uploadTime: fileData.headers.get("last-modified"),
+      },
+      folderName: folder?.name,
+      folderId: folder?.id,
+    });
+  } catch (err: any) {
+    console.error(err);
+
+    return next(err);
+  }
+}
