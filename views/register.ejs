@@ -12,7 +12,7 @@
       You are already logged in. Please <a href="/logout">log out</a> to create
       a new account.
     </p>
-    <% } else { %>
+    <% } else { %> <%- include("partials/errors.ejs") %>
     <form action="/register" method="post">
       <div class="form-row">
         <label for="username">Username: </label>
