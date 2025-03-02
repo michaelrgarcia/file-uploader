@@ -77,3 +77,7 @@ export async function viewFolderGet(
     return next(err);
   }
 }
+
+export function addFilesGet(req: Request, res: Response) {
+  res.render("upload");
+}
