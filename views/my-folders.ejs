@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My folders</title>
+  </head>
+  <body>
+    <h1>My folders</h1>
+    <% if (locals.currentUser) { %>
+    <a href="/my-folders/create">Create folder</a>
+    <div class="folders" style="margin-top: 20px">
+      <div class="folder" style="border: 1px solid; padding: 10px">
+        <p class="name">Folder</p>
+        <div class="folder-actions">
+          <a href="/my-folders/add-files">Add files</a>
+          <a href="/my-folders/delete" style="color: red; margin-left: 10px"
+            >Delete</a
+          >
+        </div>
+      </div>
+    </div>
+    <% } else { %>
+    <p>
+      You must <a href="/register">register</a> and/or
+      <a href="/login">log in</a> to access your folders.
+    </p>
+    <% } %>
+  </body>
+</html>
