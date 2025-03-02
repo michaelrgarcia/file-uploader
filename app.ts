@@ -9,6 +9,7 @@ import { join, dirname } from "node:path";
 
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { PrismaClient } from "@prisma/client";
+import uploadRouter from "./routes/uploadRouter.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,6 +21,8 @@ const PORT = 3000;
 
 app.set("views", join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+// middleware
 
 app.use(
   expressSession({
@@ -47,7 +50,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
+// routes
+
 app.use("/", indexRouter);
+app.use("/upload", uploadRouter);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err);
