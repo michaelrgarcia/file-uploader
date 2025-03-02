@@ -6,6 +6,14 @@
     <title>Home</title>
   </head>
   <body>
-    <p>a passing feeling</p>
+    <h1>File Uploader</h1>
+    <% if (locals.currentUser) { %>
+    <p>Welcome back!</p>
+    <a href="/logout">Logout</a>
+    <% } else { %>
+    <p>You must be logged in to upload files.</p>
+    <a href="/login">Login</a>
+    <a href="/register" style="margin-left: 10px">Register</a>
+    <% } %>
   </body>
 </html>
