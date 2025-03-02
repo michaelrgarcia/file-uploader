@@ -10,6 +10,8 @@ import {
   deleteFolderGet,
   deleteFolderPost,
   foldersGet,
+  renameFolderGet,
+  renameFolderPost,
   viewFileGet,
   viewFolderGet,
 } from "../controllers/foldersController.js";
@@ -31,6 +33,9 @@ foldersRouter.post("/:folderId/add", upload.single("file"), addFilesPost);
 
 foldersRouter.get("/:folderId/delete", deleteFolderGet);
 foldersRouter.post("/:folderId/delete", deleteFolderPost);
+
+foldersRouter.get("/:folderId/rename", renameFolderGet);
+foldersRouter.post("/:folderId/rename", renameFolderPost);
 
 // file routes
 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rename folder</title>
+  </head>
+  <body>
+    <h1>Rename folder</h1>
+    <% if (locals.currentUser) { %>
+    <form action="/my-folders/<%= folder.id %>/rename" method="post">
+      <div class="form-row">
+        <label for="folderName">Name: </label>
+        <input
+          type="text"
+          name="folderName"
+          id="folderName"
+          value="<%= folder.name %>"
+        />
+      </div>
+      <button type="submit" style="margin-top: 30px">Submit</button>
+    </form>
+    <% } else { %>
+    <p>
+      You must <a href="/register">register</a> and/or
+      <a href="/login">log in</a> to rename a folder.
+    </p>
+    <% } %>
+  </body>
+</html>
