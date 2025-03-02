@@ -2,4 +2,4 @@
 
 Another Typescript Express server that exercises basic authentication concepts with Passport. Uses ejs for views. Also my first go-around with an ORM (Prisma).
 
-At least for my own projects, I will be moving onto JWT authentication after this.
+I will be moving onto JWT authentication after this.
