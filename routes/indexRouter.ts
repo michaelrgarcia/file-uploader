@@ -4,6 +4,7 @@ import passport from "../auth/passportConfig.js";
 import {
   indexGet,
   loginGet,
+  logoutGet,
   registerGet,
   registerPost,
 } from "../controllers/indexController.js";
@@ -23,5 +24,7 @@ indexRouter.post(
     failureRedirect: "/login",
   })
 );
+
+indexRouter.get("/logout", logoutGet);
 
 export default indexRouter;
