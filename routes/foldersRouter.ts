@@ -2,8 +2,11 @@ import multer from "multer";
 
 import { Router, Request, Response, NextFunction } from "express";
 
+import fileRouter from "./fileRouter.js";
+
 import {
   addFilesGet,
+  addFilesPost,
   createFolderGet,
   createFolderPost,
   foldersGet,
@@ -12,7 +15,10 @@ import {
 
 const foldersRouter = Router();
 
-const upload = multer({ dest: "uploads/" }); // TEMP
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+foldersRouter.use("/:folderId/file", fileRouter);
 
 foldersRouter.get("/", foldersGet);
 
@@ -22,19 +28,6 @@ foldersRouter.post("/create", createFolderPost);
 foldersRouter.get("/:folderId", viewFolderGet);
 
 foldersRouter.get("/:folderId/add", addFilesGet);
-foldersRouter.post(
-  "/:folderId/add",
-  upload.single("file"),
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      // do supabase stuff here
-      res.render("upload", { message: "Upload successful! " });
-    } catch (err: any) {
-      console.error(err);
-
-      return next(err);
-    }
-  }
-);
+foldersRouter.post("/:folderId/add", upload.single("file"), addFilesPost);
 
 export default foldersRouter;
