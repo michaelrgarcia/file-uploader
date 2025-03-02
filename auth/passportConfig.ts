@@ -2,11 +2,18 @@ import passport from "passport";
 
 import { Strategy as LocalStrategy } from "passport-local";
 import { compare } from "bcrypt";
+import { PrismaClient } from "@prisma/client";
 
 passport.use(
   new LocalStrategy(async (username: string, password: string, done) => {
     try {
-      let user: any; // query here
+      const prisma = new PrismaClient();
+
+      const user = await prisma.user.findUnique({
+        where: {
+          username,
+        },
+      });
 
       if (!user) {
         return done(null, false, { message: "Email not found" });
@@ -31,7 +38,13 @@ passport.serializeUser((user: any, done) => {
 
 passport.deserializeUser(async (id: number, done) => {
   try {
-    let user: any; // query here
+    const prisma = new PrismaClient();
+
+    const user = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
 
     done(null, user);
   } catch (err: any) {

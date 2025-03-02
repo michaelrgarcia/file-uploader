@@ -46,3 +46,7 @@ export const registerPost = [
     }
   },
 ];
+
+export function loginGet(req: Request, res: Response) {
+  res.render("login");
+}
