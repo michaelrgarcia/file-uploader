@@ -9,7 +9,6 @@ import { join, dirname } from "node:path";
 
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { PrismaClient } from "@prisma/client";
-import uploadRouter from "./routes/uploadRouter.js";
 import foldersRouter from "./routes/foldersRouter.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -54,7 +53,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // routes
 
 app.use("/", indexRouter);
-app.use("/upload", uploadRouter);
 app.use("/my-folders", foldersRouter);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
