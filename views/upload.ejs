@@ -3,14 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Upload</title>
+    <title>Upload file</title>
   </head>
   <body>
     <h1>Upload file</h1>
     <% if (locals.currentUser) { %> <% if (locals.message) { %>
     <p><%= locals.message %></p>
     <% } %>
-    <form action="/upload" method="post" enctype="multipart/form-data">
+    <form
+      action="/my-folders/<%= locals.folderId %>/add"
+      method="post"
+      enctype="multipart/form-data"
+    >
       <div class="form-row">
         <label for="file">File: </label>
         <input type="file" name="file" id="file" />
@@ -20,7 +24,7 @@
     <% } else { %>
     <p>
       You must <a href="/register">register</a> and/or
-      <a href="/login">log in</a> to upload a file.
+      <a href="/login">log in</a> to upload a file to a folder.
     </p>
     <% } %>
   </body>

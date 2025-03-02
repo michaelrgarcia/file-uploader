@@ -79,5 +79,7 @@ export async function viewFolderGet(
 }
 
 export function addFilesGet(req: Request, res: Response) {
-  res.render("upload");
+  const { folderId } = req.params;
+
+  res.render("upload", { folderId });
 }
