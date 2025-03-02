@@ -226,7 +226,7 @@ export async function deleteFolderPost(
       const parts = file.split("/");
       const fileName = parts[parts.length - 1];
 
-      return "/" + fileName;
+      return fileName;
     });
 
     const supabase = createClient(
