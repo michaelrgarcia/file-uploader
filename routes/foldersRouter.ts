@@ -27,6 +27,8 @@ foldersRouter.get("/:folderId", viewFolderGet);
 foldersRouter.get("/:folderId/add", addFilesGet);
 foldersRouter.post("/:folderId/add", upload.single("file"), addFilesPost);
 
+// file routes
+
 foldersRouter.get("/:folderId/file/:fileIndex", viewFileGet);
 
 export default foldersRouter;
