@@ -95,6 +95,8 @@ export async function addFilesPost(
   next: NextFunction
 ) {
   try {
+    if (!req.user) throw new Error("Please log in to add files.");
+
     const { file } = req;
     const { folderId } = req.params;
 
@@ -108,13 +110,13 @@ export async function addFilesPost(
     );
 
     const { data, error } = await supabase.storage
-      .from("odin-file-uploader")
+      .from(String(process.env.SUPABASE_BUCKET_ID))
       .upload(file.originalname, fileBase64);
 
     if (error) throw error;
 
     const { data: publicUrl } = supabase.storage
-      .from("odin-file-uploader")
+      .from(String(process.env.SUPABASE_BUCKET_ID))
       .getPublicUrl(data.path);
 
     const prisma = new PrismaClient();
@@ -171,6 +173,82 @@ export async function viewFileGet(
       folderName: folder?.name,
       folderId: folder?.id,
     });
+  } catch (err: any) {
+    console.error(err);
+
+    return next(err);
+  }
+}
+
+export async function deleteFolderGet(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { folderId } = req.params;
+
+    const prisma = new PrismaClient();
+
+    const folder = await prisma.folder.findUniqueOrThrow({
+      where: {
+        id: Number(folderId),
+      },
+    });
+
+    res.render("delete-folder", { folder });
+  } catch (err: any) {
+    console.error(err);
+
+    return next(err);
+  }
+}
+
+export async function deleteFolderPost(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    if (!req.user) throw new Error("Please log in delete a folder.");
+
+    const { folderId } = req.params;
+
+    const prisma = new PrismaClient();
+
+    const folder = await prisma.folder.findUniqueOrThrow({
+      where: {
+        id: Number(folderId),
+      },
+    });
+
+    const fileNames = folder.files.map((file) => {
+      const parts = file.split("/");
+      const fileName = parts[parts.length - 1];
+
+      return "/" + fileName;
+    });
+
+    console.log(fileNames);
+
+    const supabase = createClient(
+      String(process.env.SUPABASE_PROJECT_URL),
+      String(process.env.SUPABASE_API_KEY)
+    );
+
+    const { error } = await supabase.storage
+      .from(String(process.env.SUPABASE_BUCKET_ID))
+      .remove(fileNames);
+
+    if (error) throw error;
+
+    await prisma.folder.delete({
+      where: {
+        id: Number(folderId),
+      },
+    });
+
+    res.redirect("/my-folders");
   } catch (err: any) {
     console.error(err);
 

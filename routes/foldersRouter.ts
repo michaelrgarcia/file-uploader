@@ -1,12 +1,14 @@
 import multer from "multer";
 
-import { Router, Request, Response, NextFunction } from "express";
+import { Router } from "express";
 
 import {
   addFilesGet,
   addFilesPost,
   createFolderGet,
   createFolderPost,
+  deleteFolderGet,
+  deleteFolderPost,
   foldersGet,
   viewFileGet,
   viewFolderGet,
@@ -26,6 +28,9 @@ foldersRouter.get("/:folderId", viewFolderGet);
 
 foldersRouter.get("/:folderId/add", addFilesGet);
 foldersRouter.post("/:folderId/add", upload.single("file"), addFilesPost);
+
+foldersRouter.get("/:folderId/delete", deleteFolderGet);
+foldersRouter.post("/:folderId/delete", deleteFolderPost);
 
 // file routes
 

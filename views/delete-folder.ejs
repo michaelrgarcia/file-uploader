@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete folder</title>
+  </head>
+  <body>
+    <h1>Delete folder</h1>
+    <% if (locals.currentUser) { %>
+    <h2>Are you sure you want to delete "<%= folder.name %>"?</h2>
+    <p>This will delete all associated files!</p>
+    <form action="/my-folders/<%= folder.id %>/delete" method="post">
+      <button type="submit" style="margin-top: 30px">Yes</button>
+      <a href="/my-folders">
+        <button type="button">No</button>
+      </a>
+    </form>
+    <% } else { %>
+    <p>
+      You must <a href="/register">register</a> and/or
+      <a href="/login">log in</a> to delete a folder.
+    </p>
+    <% } %>
+  </body>
+</html>
