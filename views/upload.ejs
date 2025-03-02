@@ -6,10 +6,8 @@
     <title>Upload</title>
   </head>
   <body>
-    <h1>File Uploader</h1>
-    <% if (locals.currentUser) { %>
-    <h2>Upload File</h2>
-    <% if (locals.message) { %>
+    <h1>Upload file</h1>
+    <% if (locals.currentUser) { %> <% if (locals.message) { %>
     <p><%= locals.message %></p>
     <% } %>
     <form action="/upload" method="post" enctype="multipart/form-data">
