@@ -1,16 +1,26 @@
 import { PrismaClient } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 
-export async function foldersGet(req: Request, res: Response) {
-  const prisma = new PrismaClient();
+export async function foldersGet(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const prisma = new PrismaClient();
 
-  const folders = await prisma.folder.findMany({
-    where: {
-      creatorId: Number((req.user as any).id),
-    },
-  });
+    const folders = await prisma.folder.findMany({
+      where: {
+        creatorId: Number((req.user as any).id),
+      },
+    });
 
-  res.render("my-folders", { folders });
+    res.render("my-folders", { folders });
+  } catch (err: any) {
+    console.error(err);
+
+    return next(err);
+  }
 }
 
 export function createFolderGet(req: Request, res: Response) {
@@ -37,6 +47,30 @@ export async function createFolderPost(
     });
 
     res.redirect("/my-folders");
+  } catch (err: any) {
+    console.error(err);
+
+    return next(err);
+  }
+}
+
+export async function viewFolderGet(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { folderId } = req.params;
+
+  try {
+    const prisma = new PrismaClient();
+
+    const folder = await prisma.folder.findUnique({
+      where: {
+        id: Number(folderId),
+      },
+    });
+
+    res.render("folder-contents", { folder });
   } catch (err: any) {
     console.error(err);
 

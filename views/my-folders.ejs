@@ -11,7 +11,10 @@
     <a href="/my-folders/create">Create folder</a>
     <div class="folders" style="margin-top: 20px">
       <% if (locals.folders) { %> <% folders.forEach(function(folder) { %>
-      <div class="folder" style="border: 1px solid; padding: 10px">
+      <div
+        class="folder"
+        style="border: 1px solid; padding: 10px; margin-bottom: 20px"
+      >
         <p class="name"><%= folder.name %></p>
         <div class="folder-actions">
           <a href="/my-folders/<%= folder.id %>">View contents</a>

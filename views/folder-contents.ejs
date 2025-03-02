@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Folder | <%= folder.name %></title>
+  </head>
+  <body>
+    <h1><%= folder.name %></h1>
+    <h2>Files</h2>
+    <% folder.files.forEach(function(file, fileIndex) { %>
+    <div class="file" style="border: 1px solid; padding: 10px">
+      <p class="name"><%= file.name %></p>
+      <div class="file-actions">
+        <a href="/my-folders/<%= folder.id %>/file/<%= fileIndex %>"
+          >More info</a
+        >
+        <a
+          href="/my-folders/<%= folder.id %>/file/download/<%= fileIndex %>"
+          style="margin-left: 10px"
+          >Download</a
+        >
+      </div>
+    </div>
+    <% }); %>
+  </body>
+</html>
