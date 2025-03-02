@@ -10,15 +10,22 @@
     <% if (locals.currentUser) { %>
     <a href="/my-folders/create">Create folder</a>
     <div class="folders" style="margin-top: 20px">
+      <% if (locals.folders) { %> <% folders.forEach(function(folder) { %>
       <div class="folder" style="border: 1px solid; padding: 10px">
-        <p class="name">Folder</p>
+        <p class="name"><%= folder.name %></p>
         <div class="folder-actions">
-          <a href="/my-folders/add-files">Add files</a>
-          <a href="/my-folders/delete" style="color: red; margin-left: 10px"
+          <a href="/my-folders/<%= folder.id %>">View contents</a>
+          <a href="/my-folders/<%= folder.id %>/add" style="margin-left: 10px"
+            >Add files</a
+          >
+          <a
+            href="/my-folders/<%= folder.id %>/delete"
+            style="color: red; margin-left: 10px"
             >Delete</a
           >
         </div>
       </div>
+      <% }); %> <% } %>
     </div>
     <% } else { %>
     <p>
