@@ -284,7 +284,7 @@ export async function renameFolderPost(
   next: NextFunction
 ) {
   try {
-    if (!req.user) throw new Error("Please log in rename a folder.");
+    if (!req.user) throw new Error("Please log in to rename a folder.");
 
     const { folderName } = req.body;
     const { folderId } = req.params;
